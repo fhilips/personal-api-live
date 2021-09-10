@@ -1,4 +1,4 @@
-package one.digitalinnovation.personalapi.entity;
+package one.digitalinnovation.personalapi.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,18 +7,17 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Person {
+public class PersonDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -28,12 +27,21 @@ public class Person {
     private String lastName;
 
     @Column(nullable = false, unique = true)
-    @CPF
+  //  @CPF
     private String cpf;
 
     private LocalDate birthDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    private List<Phone> phones;
+    @Valid
+    @NotEmpty
+    private List<PhoneDTO> phones;
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
 
 }
