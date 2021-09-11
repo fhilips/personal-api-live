@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Builder
 @Service
+
 public class PersonService {
 
     private PersonRepository personRepository;
